@@ -18,3 +18,7 @@ controllerから振られたDB関連の処理をやってくれる
 ## controller/book.go
 * main.goから振られたリクエストをserviceに振る
 * レスポンスを返す
+
+## middleware/bookMiddleware.go
+リクエストのログをとっておく
+zapはuberが作ったopensourceのやつ
