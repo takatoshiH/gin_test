@@ -1,35 +1,25 @@
 package service
 
 import (
+	"errors"
 	"fmt"
+	"gin_test/model"
 	"github.com/go-xorm/xorm"
 	"log"
 )
 
 var DbEngine *xorm.Engine
 
-// CONSTANT VALUES
-const (
-	DBTYPE = "mysql"
-	SCHEMA = "%s:%s@tcp(mysql:3306)/%s?charset=utf8&parseTime=True&loc=Local"
-)
-
-var (
-	Client   *gorm.DB
-	username = "root"
-	password = "mysql"
-	dbName   = "gin"
-
-	datasourceName = fmt.Sprintf(SCHEMA, username, password, dbName)
-)
-
 func init() {
-	var err error
-	// user:password@/db_name -> docker.compose.yml - mysql service
-	Client, err = gorm.Open(DBTYPE, datasourceName)
-	if err != nil {
-		log.Fatal(err)
+	driverName := "gin"
+	DsName := "root:root@(192.168.99.100:3306)/gin?charset=utf8"
+	err := errors.New("")
+	DbEngine, err = xorm.NewEngine(driverName, DsName)
+	if err != nil && err.Error() != "" {
+		log.Fatal(err.Error())
 	}
-
-	log.Println("database successfully configure")
+	DbEngine.ShowSQL(true)
+	DbEngine.SetMaxOpenConns(2)
+	DbEngine.Sync2(new(model.Book))
+	fmt.Println("init data base ok")
 }

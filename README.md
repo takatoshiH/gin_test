@@ -1,5 +1,7 @@
 # Ginについて
 
+ginのTutorial: https://go.dev/doc/tutorial/web-service-gin
+
 # それぞれのファイルについて
 
 ## main.go
@@ -21,4 +23,7 @@ controllerから振られたDB関連の処理をやってくれる
 
 ## middleware/bookMiddleware.go
 リクエストのログをとっておく
-zapはuberが作ったopensourceのやつ
+
+# ライブラリについて
+* GORMはGo言語でよく使われているORM
+* zapはuberが作ったopensourceのやつ(ログとかとってくれる)

@@ -1,7 +1,7 @@
 package service
 
 import (
-	"qiita/model"
+	"gin_test/model"
 )
 
 type BookService struct {
@@ -14,18 +14,18 @@ func (BookService) SetBook(book *model.Book) error {
 }
 
 // index
-func (BookService) GetBookList() []model.Book {
-	books := make([]model.Book, 0)
-	err := Distinct("id", "title", "content").Limit(10, 0).Find(&books)
-	if err != nil {
-		panic(err)
-	}
-	return books
-}
+//func (BookService) GetBookList() []model.Book {
+//	books := make([]model.Book, 0)
+//	err := Distinct("id", "title", "content").Limit(10, 0).Find(&books)
+//	if err != nil {
+//		panic(err)
+//	}
+//	return books
+//}
 
 // update
 func (BookService) updateBook(newBook *model.Book) error {
-	_, err = DbEngine.Id(newBook.Id).Update(newBook)
+	_, err := DbEngine.Id(newBook.Id).Update(newBook)
 	return err
 }
 
