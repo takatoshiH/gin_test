@@ -7,11 +7,12 @@ import (
 
 func GetRouter() *gin.Engine {
 	router := gin.Default()
+	router.LoadHTMLGlob("templates/*.html")
 
-	//一覧を取得する
 	album := new(controller.AlbumController)
 
-	router.GET("/albums", album.GetAlbums)
+	//一覧を取得する
+	router.GET("/", album.GetAlbums)
 
 	//新規に登録する
 	router.POST("/albums", album.PostAlbums)

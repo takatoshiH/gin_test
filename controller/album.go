@@ -16,7 +16,9 @@ var albums = []model.Album{
 }
 
 func (a AlbumController) GetAlbums(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, albums)
+	c.HTML(http.StatusOK, "index.html", gin.H{
+		"albums": albums,
+	})
 }
 
 func (a AlbumController) PostAlbums(c *gin.Context) {
