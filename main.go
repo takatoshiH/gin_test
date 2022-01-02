@@ -22,36 +22,50 @@ var albums = []album{
 
 // HTMLを返すようにしたい
 func getAlbums(c *gin.Context) {
+	// jsonを返すようにしている
 	c.IndentedJSON(http.StatusOK, albums)
 }
 
-// postAlbums adds an album from JSON received in the request body.
 func postAlbums(c *gin.Context) {
 	var newAlbum album
 
-	// Call BindJSON to bind the received JSON to
-	// newAlbum.
 	if err := c.BindJSON(&newAlbum); err != nil {
 		return
 	}
 
-	// Add the new album to the slice.
 	albums = append(albums, newAlbum)
+
+	// jsonを返すようにしている
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
 
 func getAlbumByID(c *gin.Context) {
+	//こんな感じでパラメータを取得することができる
 	id := c.Param("id")
 
-	// Loop over the list of albums, looking for
-	// an album whose ID value matches the parameter.
+	// Loopで一致するやつを探している
 	for _, a := range albums {
 		if a.ID == id {
+			// jsonを返している(見つかった)
 			c.IndentedJSON(http.StatusOK, a)
 			return
 		}
 	}
+	// jsonを返している(見つからなかった)
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
+}
+
+func getCheapestAlbum(c *gin.Context) {
+	cheapestAlbum := albums[0]
+
+	for _, a := range albums {
+		if a.Price <= cheapestAlbum.Price {
+			cheapestAlbum = a
+		}
+	}
+
+	c.IndentedJSON(http.StatusOK, cheapestAlbum)
+
 }
 
 func main() {
@@ -66,5 +80,9 @@ func main() {
 	//IDからアルバムを取得する
 	router.GET("/albums/:id", getAlbumByID)
 
+	// 最も安いアルバムを取得する
+	router.GET("/albums/cheapest", getCheapestAlbum)
+
+	// localhost:8080
 	router.Run("localhost:8080")
 }
