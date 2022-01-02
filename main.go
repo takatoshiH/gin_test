@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 // album represents data about a record album.
@@ -26,8 +27,13 @@ func getAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, albums)
 }
 
+// albumをIDは自動でインクリメントするようにしたい
 func postAlbums(c *gin.Context) {
 	var newAlbum album
+
+	//IDがincrementするようにする
+	newAlbumID := getLatestID() + 1
+	newAlbum.ID = strconv.Itoa(newAlbumID)
 
 	if err := c.BindJSON(&newAlbum); err != nil {
 		return
@@ -55,6 +61,7 @@ func getAlbumByID(c *gin.Context) {
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 }
 
+// 最も安いalbumを取得する
 func getCheapestAlbum(c *gin.Context) {
 	cheapestAlbum := albums[0]
 
@@ -65,7 +72,19 @@ func getCheapestAlbum(c *gin.Context) {
 	}
 
 	c.IndentedJSON(http.StatusOK, cheapestAlbum)
+}
 
+func getLatestID() int {
+	index := 0
+
+	for _, a := range albums {
+		idInt, _ := strconv.Atoi(a.ID)
+		if idInt > index {
+			index = idInt
+		}
+	}
+
+	return index
 }
 
 func main() {
