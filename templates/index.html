@@ -4,9 +4,9 @@
 <body>
 <h1>アルバムの一覧</h1>
 <ul>
-    {{range .album}}
+    {{range .albums}}
     <li>
-        {{.Title}}
+        {{.ID}}:{{.Title}}
     </li>
     {{end}}
 </ul>

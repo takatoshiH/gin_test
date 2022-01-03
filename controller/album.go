@@ -38,10 +38,8 @@ func (a AlbumController) PostAlbums(c *gin.Context) {
 }
 
 func (a AlbumController) GetAlbumByID(c *gin.Context) {
-	//こんな感じでパラメータを取得することができる
 	id := c.Param("id")
 
-	// Loopで一致するやつを探している
 	for _, a := range albums {
 		if a.ID == id {
 			c.IndentedJSON(http.StatusOK, a)
