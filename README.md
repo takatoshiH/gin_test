@@ -32,3 +32,6 @@ controllerから振られたDB関連の処理をやってくれる
 packageを横断した時の変数について、
 頭文字が大文字のものはPublicとなり、外部packageから参照が可能に、
 頭文字が小文字のものはPrivateとなり、外部packageから参照が不可能になります。
+
+# gin.Context
+laravelでいうところのRequest的な役割をしている感がある

@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"gin_test/model"
+	. "gin_test/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -9,7 +9,7 @@ import (
 
 type AlbumController struct{}
 
-var albums = []model.Album{
+var albums = []Album{
 	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
 	{ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
 	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
@@ -22,7 +22,7 @@ func (a AlbumController) GetAlbums(c *gin.Context) {
 }
 
 func (a AlbumController) PostAlbums(c *gin.Context) {
-	var newAlbum model.Album
+	var newAlbum Album
 
 	newAlbumID := getLatestID() + 1
 	newAlbum.ID = strconv.Itoa(newAlbumID)
