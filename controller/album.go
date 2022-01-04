@@ -15,13 +15,13 @@ var albums = []Album{
 	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 }
 
-func (a AlbumController) GetAlbums(c *gin.Context) {
+func (a AlbumController) Index(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", gin.H{
 		"albums": albums,
 	})
 }
 
-func (a AlbumController) PostAlbums(c *gin.Context) {
+func (a AlbumController) Create(c *gin.Context) {
 	var newAlbum Album
 
 	newAlbumID := getLatestID() + 1
@@ -37,7 +37,7 @@ func (a AlbumController) PostAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
 
-func (a AlbumController) GetAlbumByID(c *gin.Context) {
+func (a AlbumController) Show(c *gin.Context) {
 	id := c.Param("id")
 
 	for _, a := range albums {

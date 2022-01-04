@@ -12,13 +12,13 @@ func GetRouter() *gin.Engine {
 	album := new(controller.AlbumController)
 
 	//一覧を取得する
-	router.GET("/", album.GetAlbums)
+	router.GET("/", album.Index)
 
 	//新規に登録する
-	router.POST("/albums", album.PostAlbums)
+	router.POST("/albums", album.Create)
 
 	//IDからアルバムを取得する
-	router.GET("/albums/:id", album.GetAlbumByID)
+	router.GET("/albums/:id", album.Show)
 
 	// 最も安いアルバムを取得する
 	router.GET("/albums/cheapest", album.GetCheapestAlbum)
